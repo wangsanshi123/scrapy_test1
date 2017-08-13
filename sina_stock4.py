@@ -1,9 +1,4 @@
 # -*- coding:utf-8 -*-
-import re
-import ssl
-import urllib2
-
-import lxml.html
 
 from link_crawler import Throttle
 from sina_stock2 import StockInfo
@@ -12,7 +7,7 @@ from sina_stock3 import GetStockCode
 stockcodes = GetStockCode().getstockcode()
 
 i =0
-delay =5
+delay =4
 throttle = Throttle(delay)
 for stockcode in stockcodes:
     i+=1
