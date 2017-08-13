@@ -78,6 +78,7 @@ class StockInfo:
                         beginflag = True
                     if beginflag:
                         list_temp.append(item.text_content().strip())
+        print '正在爬取数据：', stockcode, '年：', year, "度：", jidu
         return list_temp
         pass
 

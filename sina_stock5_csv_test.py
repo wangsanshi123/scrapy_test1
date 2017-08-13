@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 import csv
 import re
-
 import time
 
-from link_crawler import Throttle
 from sina_stock3 import GetStockCode
 from sina_stock5_csv import StockInfo
 
