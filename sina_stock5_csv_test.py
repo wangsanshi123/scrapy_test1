@@ -86,31 +86,31 @@ class Sina_stock:
 
                     list_all_new.append(row)
                     list_single_new = []  # 单只股票更新的信息
+                    isSame = False
+
                     if stockcode is not None and stockcode == row[0]:
+                        isSame = True
+                        pass
+                    elif stockcode is not None and stockcode != row[0]:
+                        isSame = False
+                        position = i
+                        pass
+                    if not isSame:
                         # 获取当前股票最新数据并存入csv文档中
                         datas = StockInfo().getData(stockcode, jidu, 4)
                         # 分析数据，根据日期去掉重复部分，然后存入csv文档中
-
-
                         for item in datas:
                             # 将从网络上的得到的数据存到内存中
                             if item[1] == date:
                                 break
                             list_single_new.append(item)
 
-                        pass
-
-
-                    elif stockcode is not None and stockcode != row[0]:
-                        position = i
-                        pass
                     list_all_new.insert(position, list_single_new)
-
                     stockcode = row[0]
                 i += 1
 
         print len(list_all_new)
-        print list_all_new[0]
+        print list_all_new
 
         pass
 
