@@ -35,7 +35,7 @@ class StockInfo:
                 year_temp = year - 1
                 pass
 
-            list_temp = self.visiteSina(stockcode, year_temp, jidu_temp, throttle)
+            list_temp.extend(self.visiteSina(stockcode, year_temp, jidu_temp, throttle))
 
             pass
         # 将数据获得数据简单处理后存到内存中

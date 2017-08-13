@@ -79,32 +79,38 @@ class Sina_stock:
         with open('stockdata_1.csv', 'U') as f:
             # 获取股票代码
             f_csv = csv.reader(f)
+            i = 0
             position = 0  # 插入更新信息的位置
+            stockcode = None
             for row in f_csv:
                 if re.match(r'\d', ''.join(row)):
-                    stockcode = row[0]
                     # 将从disk里面读取的数据临时存到内存中
+
                     list_all_new.append(row)
-                    if stockcode is not None and stockcode is  row[0]:
+                    list_single_new = []  # 单只股票更新的信息
+                    if stockcode is not None and stockcode == row[0]:
                         # 获取当前股票最新数据并存入csv文档中
                         datas = StockInfo().getData(stockcode, jidu, 4)
                         # 分析数据，根据日期去掉重复部分，然后存入csv文档中
-                        i = 0
 
-                        list_single_new = []  # 单只股票更新的信息
+
                         for item in datas:
                             # 将从网络上的得到的数据存到内存中
-                            list_single_new.append(item)
-                            if i % 7 == 0:
-                                list_co = datas[i:i + 7]
-                                list_single_new.append(list_co)
-
-                            if item[0] == date:
+                            if item[1] == date:
                                 break
-                            i += 1
+                            list_single_new.append(item)
+
                         pass
-                        list_all_new.insert(position, list_single_new)
-                    position += 1
+
+
+                    elif stockcode is not None and stockcode != row[0]:
+                        position = i
+                        pass
+                    list_all_new.insert(position, list_single_new)
+
+                    stockcode = row[0]
+                i += 1
+
         print len(list_all_new)
         print list_all_new[0]
 
