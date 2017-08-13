@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
+import re
 import ssl
+import urllib
 import urllib2
 
 import lxml.html

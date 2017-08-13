@@ -28,10 +28,11 @@ class BDTB:
 baseURL = 'http://tieba.baidu.com/p/3138733512'
 bdtb = BDTB(baseURL, 0)
 target = bdtb.getPage(1).read().decode('utf-8')
-print target
-# 提取作者
+# print target
+
 tree = lxml.html.fromstring(target)
-div = tree.cssselect('div.d_post_content j_d_post_content')
+div = tree.cssselect('div.d_post_contentj_d_post_content ')
+# div = tree.cssselect('div.p_content>cc>div')
 print len(div)
 for item in div:
     print item.text_content(),'\n==================================='
