@@ -70,7 +70,7 @@ class Sina_stock:
         return codes_list
 
     def updateData(self):  # 关键方法
-        '''更新数据:'''
+        '''更新数据:根据已知csv文件'''
         jidu = self.getlastUpdateInfo()[0]
         date = self.getlastUpdateInfo()[1]
         list_all_new = []
@@ -95,7 +95,8 @@ class Sina_stock:
                         isSame = False
                         position = i
                         pass
-                    if not isSame:
+                    stockcode = row[0]
+                    if stockcode is not None and not isSame:
                         # 获取当前股票最新数据并存入csv文档中
                         datas = StockInfo().getData(stockcode, jidu, 4)
                         # 分析数据，根据日期去掉重复部分，然后存入csv文档中
@@ -104,14 +105,19 @@ class Sina_stock:
                             if item[1] == date:
                                 break
                             list_single_new.append(item)
-
-                    list_all_new.insert(position, list_single_new)
-                    stockcode = row[0]
-                i += 1
+                        # todo
+                        count = 0
+                        for item in list_single_new:
+                            list_all_new.insert(position + count, item)
+                            count += 1
+                        i = i + len(list_single_new)
+                    i += 1
 
         print len(list_all_new)
         print list_all_new
-
+        with open('stockdata_3.csv', 'w+') as f:
+            f_csv = csv.writer(f)
+            f_csv.writerows(list_all_new)
         pass
 
 
